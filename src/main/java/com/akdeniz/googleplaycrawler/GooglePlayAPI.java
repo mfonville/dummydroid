@@ -99,6 +99,7 @@ public class GooglePlayAPI {
 	private String androidID;
 	private String email;
 	private String password;
+	private String encryptedPassword;
 	private HttpClient client;
 	private String securityToken;
 	private String localization;
@@ -113,8 +114,9 @@ public class GooglePlayAPI {
 	/**
 	 * Constructs a ready to login {@link GooglePlayAPI}.
 	 */
-	public GooglePlayAPI(String email, String password, String androidID) {
+	public GooglePlayAPI(String email, String password, String androidID) throws Exception {
 		this(email, password);
+		this.encryptedPassword = Utils.encryptString(email + "\u0000" + password);
 		this.setAndroidID(androidID);
 	}
 
@@ -123,9 +125,10 @@ public class GooglePlayAPI {
 	 * <code>checkin()</code> or set by using <code>setAndroidID</code> before
 	 * using other abilities.
 	 */
-	public GooglePlayAPI(String email, String password) {
+	public GooglePlayAPI(String email, String password) throws Exception {
 		this.setEmail(email);
 		this.password = password;
+		this.encryptedPassword = Utils.encryptString(email + "\u0000" + password);
 		setClient(new DefaultHttpClient(getConnectionManager()));
 	}
 
@@ -179,7 +182,7 @@ public class GooglePlayAPI {
 		HttpEntity c2dmResponseEntity = executePost(URL_LOGIN,
 				new String[][] {
 						{ "Email", this.getEmail() },
-						{ "Passwd", this.password },
+						{ "EncryptedPasswd", this.encryptedPassword },
 						{ "service", "ac2dm" },
 						{ "add_account", "1"},
 						{ "accountType", ACCOUNT_TYPE_HOSTED_OR_GOOGLE },
@@ -222,10 +225,9 @@ public class GooglePlayAPI {
 	 * email and password every time.
 	 */
 	public void login() throws Exception {
-
 		HttpEntity responseEntity = executePost(URL_LOGIN, new String[][] {
 				{ "Email", this.getEmail() },
-				{ "Passwd", this.password },
+				{ "EncryptedPasswd", this.encryptedPassword },
 				{ "service", "androidmarket" },
 				{ "accountType", ACCOUNT_TYPE_HOSTED_OR_GOOGLE },
 				{ "has_permission", "1" },
