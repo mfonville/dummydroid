@@ -92,7 +92,7 @@ public class FormData {
 					.setScreenDensity(560)
 					.setScreenWidth(1440)
 					.setScreenHeight(2560)
-					.setGlEsVersion(196609)
+					.setGlEsVersion(196608)
 					.addAllSystemSharedLibrary(
 							Arrays.asList("android.test.runner", "com.android.future.usb.accessory", "com.android.location.provider",
 									"com.android.media.remotedisplay", "com.android.mediadrm.signer", "com.android.nfc_extras", "com.google.android.camera.experimental2015",
@@ -169,8 +169,8 @@ public class FormData {
 	 */
 	public AndroidBuildProto.Builder getAndroidBuildProtoBuilder() {
 		if (androidBuildProtoBuilder == null) {
-			androidBuildProtoBuilder = AndroidBuildProto.newBuilder().setTimestamp(
-					new Date().getTime() / 1000);
+			androidBuildProtoBuilder = AndroidBuildProto.newBuilder()
+					.setTimestamp(new Date().getTime() / 1000);
 		}
 		return androidBuildProtoBuilder;
 	}

@@ -43,8 +43,8 @@ public class LoadForm extends AbstractForm implements ActionListener, DummyDroid
 		String defHeight = "" + formData.getDeviceConfigurationProtoBuilder().getScreenHeight();
 		String defDensity = "" + formData.getDeviceConfigurationProtoBuilder().getScreenDensity();
 
-		int sdkversion = Integer.parseInt(properties.getProperty("ro.build.version.sdk", "1"));
-		int glesversion = Integer.parseInt(properties.getProperty("ro.opengles.version", "1"));
+		int sdkversion = Integer.parseInt(properties.getProperty("ro.build.version.sdk", "17"));
+		int glesversion = Integer.parseInt(properties.getProperty("ro.opengles.version", "196608"));
 		int screendensity = Integer.parseInt(properties.getProperty("ro.sf.lcd_density", defDensity));
 		int width = Integer.parseInt(properties.getProperty(SCREENHEIGHT, defWidth));
 		int height = Integer.parseInt(properties.getProperty(SCREENWIDTH, defHeight));
